@@ -43,8 +43,6 @@ public class Main {
 		HttpURLConnection con = (HttpURLConnection) url.openConnection();
 		con.setRequestMethod("GET");
 
-		int responseCode = con.getResponseCode();
-		System.out.println("Código de respuesta: " + responseCode);
 
 		BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
 		String inputLine;
