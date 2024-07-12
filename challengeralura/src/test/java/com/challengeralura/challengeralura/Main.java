@@ -27,6 +27,7 @@ public class Main {
 
 	static void convertir(String pais, double valorDolar) {
 		Scanner leer = new Scanner(System.in);
+		System.out.printf("Bienvenidos al conversor de monedas" )
 		System.out.printf("Por favor ingrese la cantidad de %s: ", pais);
 		double cantidadMoneda = leer.nextDouble();
 		double dolares = cantidadMoneda / valorDolar;
