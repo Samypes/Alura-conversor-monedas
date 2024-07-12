@@ -38,7 +38,7 @@ public class Main {
 
 	private static double obtenerValorDolar(String moneda) throws Exception {
 		String apiKey = "4073b38c63552cc9f5207ea2";
-		String urlString = "https://v6.exchangerate-api.com/v6/" + apiKey + "/latest/USD";
+		String urlString = "https://v6.exchangerate-api.com/v6/" + apiKey + "/latest/USD"+ moneda;
 		URL url = new URL(urlString);
 		HttpURLConnection con = (HttpURLConnection) url.openConnection();
 		con.setRequestMethod("GET");
@@ -53,12 +53,12 @@ public class Main {
 		while ((inputLine = in.readLine()) != null) {
 			response.append(inputLine);
 		}
-		in.close();
+		 in.close();
 
-		JSONObject jsonResponse = new JSONObject(response.toString());
-		double tasaCambio = jsonResponse.getJSONObject("conversion_rates").getDouble(moneda);
+        JSONObject jsonResponse = new JSONObject(response.toString());
+        double tasaCambio = jsonResponse.getJSONObject("conversion_rates").getDouble("USD"); 
 
-		return tasaCambio;
+        return tasaCambio;
 	}
 }
 
