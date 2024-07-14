@@ -35,6 +35,7 @@ public class Main {
 		dolares = (double) Math.round(dolares * 1000) / 1000;
 		System.out.println("-------------------------------------------");
 		System.out.println("Tienes $" + dolares + " dólares");
+		System.out.println("Salir");
 	}
 
 	private static double obtenerValorDolar(String moneda) throws Exception {
@@ -45,21 +46,43 @@ public class Main {
 		con.setRequestMethod("GET");
 
 
-		BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
-		String inputLine;
-		StringBuffer response = new StringBuffer();
+	int responseCode;
+        responseCode = con.getResponseCode();
+        System.out.println("Código de respuesta: " + responseCode);
 
-		while ((inputLine = in.readLine()) != null) {
-			response.append(inputLine);
-		}
-		 in.close();
+			BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+			String inputLine;
+			StringBuffer response = new StringBuffer();
 
-        JSONObject jsonResponse = new JSONObject(response.toString());
-        double tasaCambio = jsonResponse.getJSONObject("conversion_rates").getDouble("USD"); 
+			while ((inputLine = in.readLine()) != null) {
+				response.append(inputLine);
+			}
+			in.close();
 
-        return tasaCambio;
+			JSONObject jsonResponse = new JSONObject(response.toString());
+			double tasaCambio;
+
+			switch (moneda) {
+				case "MXN":
+					tasaCambio = jsonResponse.getJSONObject("conversion_rates").getDouble("MXN");
+					break;
+				case "COP":
+					tasaCambio = jsonResponse.getJSONObject("conversion_rates").getDouble("COP");
+					break;
+				case "BRL":
+					tasaCambio = jsonResponse.getJSONObject("conversion_rates").getDouble("BRL");
+					break;
+				default:
+					tasaCambio = 1;
+			}
+
+			return tasaCambio;
+
+
 	}
 }
+
+
 
 
 
